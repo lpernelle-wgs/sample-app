@@ -13,8 +13,12 @@ import {
 class App extends Component {
   state = {
     woosmapKey: "b98390e7-8750-49ac-88bd-451e7763b21c",
-    profile: ""
+    profile: "",
   }
+
+  
+
+  
 
   setWoosmapKey = () => {
       console.log("Woosmap Key = " + this.state.woosmapKey)
@@ -24,6 +28,22 @@ class App extends Component {
   initializeWoosmapGeofencing = () => {
     console.log("Plugin is initialized {WoosmapKey: " + this.state.woosmapKey + ", profile: " + this.state.profile + "}")
     // Initialize Woosmap Geofencing React Native Plugin
+  }
+
+  setSFMC = () => {
+    var sfmcCredentials = {
+      authenticationBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.auth.marketingcloudapis.com",
+      restBaseURI: "https://mcdmfc5rbyc0pxgr4nlpqqy0j-x1.rest.marketingcloudapis.com",
+      client_id: "7oalkbl4iwd8t3ultnxu9mg6",
+      client_secret: "SdwwhNxywVs2IEc3akCdAs2r",
+      contactKey: "ID001",
+      regionEnteredEventDefinitionKey: "APIEvent-2c62ebe7-1761-1311-ef26-18f04ca4f521",
+      regionExitedEventDefinitionKey: "APIEvent-2c62ebe7-1761-1311-ef26-18f04ca4f521"
+    };
+
+    console.log("Initialize SFMC connector")
+    // Define SFMC credentials
+
   }
 
   startStopTrackingProfile = (value) => {
@@ -57,11 +77,11 @@ class App extends Component {
       <View style={styles.container}>
         <View>
           <Button
-          title="Initialize Plugin"
-          color="#0000ff"
-          onPress={this.initializeWoosmapGeofencing}
+            title="Initialize Plugin"
+            onPress={this.initializeWoosmapGeofencing}
            />
         </View>
+        <Separator />
         <View style={styles.rowView}>
           <TextInput 
                 style={styles.textInput} 
@@ -69,6 +89,7 @@ class App extends Component {
                 onChangeText={(value) => this.state.woosmapKey = value}/>
           <Button style={{margin: 10}} title="SET" onPress={this.setWoosmapKey}/>
         </View>
+        <Separator />
         <View>
           <Text style={styles.textInput}>
             Change tracking profile: 
@@ -83,7 +104,14 @@ class App extends Component {
             <Picker.Item label="passive tracking" value="passiveTracking" />
             <Picker.Item label="visit tracking" value="visitTracking" />
           </Picker>
-        </View>  
+        </View>
+        <Separator />
+        <View>
+          <Button
+            title="Init Salesforce MC"
+            onPress={this.setSFMC}
+           />
+        </View> 
       </View>
     )
   }
@@ -106,7 +134,16 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginRight: 10,
     justifyContent: 'center',
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   }
 })
+
+const Separator = () => (
+  <View style={styles.separator} />
+);
 
 export default App;
